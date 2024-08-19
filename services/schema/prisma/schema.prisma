@@ -14,16 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id            String        @id @default(uuid())
-  email         String        @unique
-  password      String
-  accounts      Account[]     @relation("UserAccounts")
-  transactions  Transaction[] @relation("UserTransactions")
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-}
-
 model Account {
   id            String        @id @default(uuid())
   userId        String
@@ -32,8 +22,6 @@ model Account {
   paymentHistories PaymentHistory[] @relation("AccountPaymentHistories")
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
-
-  user          User          @relation("UserAccounts", fields: [userId], references: [id])
 }
 
 model PaymentHistory {
@@ -56,8 +44,6 @@ model Transaction {
   transactionType TransactionType
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
-
-  user          User       @relation("UserTransactions", fields: [userId], references: [id])
 }
 
 enum AccountType {
