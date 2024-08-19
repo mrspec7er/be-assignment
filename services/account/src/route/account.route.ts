@@ -8,7 +8,7 @@ export default async function accountRoutes(fastify: FastifyInstance) {
     { preHandler: [authenticate] },
     accountController.getUserAccount
   );
-  fastify.post<{ Body: { type: string } }>(
+  fastify.post<{ Body: { type: string; balance: number } }>(
     "/",
     { preHandler: [authenticate] },
     accountController.createAccount

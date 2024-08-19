@@ -6,12 +6,16 @@ const accountService = {
   getAccountsByUserId,
 };
 
-async function createAccount(type: AccountType, userId: string) {
+async function createAccount(
+  userId: string,
+  type: AccountType,
+  balance: number
+) {
   return prisma.account.create({
     data: {
-      type: type,
-      userId: userId,
-      balance: 0,
+      type,
+      userId,
+      balance,
     },
   });
 }

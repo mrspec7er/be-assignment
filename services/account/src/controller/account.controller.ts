@@ -19,13 +19,17 @@ async function getUserAccount(req: FastifyRequest, reply: FastifyReply) {
 }
 
 async function createAccount(
-  req: FastifyRequest<{ Body: { type: string } }>,
+  req: FastifyRequest<{ Body: { type: string; balance: number } }>,
   reply: FastifyReply
 ) {
-  const { type } = req.body;
+  const { type, balance } = req.body;
   const user = req.user;
   try {
-    const account = await service.createAccount(type as AccountType, user.id);
+    const account = await service.createAccount(
+      user.id,
+      type as AccountType,
+      balance
+    );
     return response.mutationSuccessResponse(reply, account);
   } catch (err: any) {
     return response.badRequestResponse(reply, err.message);
