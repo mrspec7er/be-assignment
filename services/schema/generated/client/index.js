@@ -169,7 +169,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../.env",
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -183,13 +183,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "fromEnvVar": null,
+        "value": "postgresql://postgres:mrc201@db:5432/be-assignment?schema=public"
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Account {\n  id           String        @id @default(uuid())\n  userId       String\n  type         AccountType\n  balance      Float         @default(0.0)\n  transactions Transaction[] @relation(\"AccountTransaction\")\n  createdAt    DateTime      @default(now())\n  updatedAt    DateTime      @updatedAt\n}\n\nmodel Transaction {\n  id              String            @id @default(uuid())\n  userId          String\n  accountId       String\n  amount          Float\n  timestamp       DateTime          @default(now())\n  toAddress       String\n  status          TransactionStatus\n  transactionType TransactionType\n  createdAt       DateTime          @default(now())\n  updatedAt       DateTime          @updatedAt\n\n  account Account @relation(\"AccountTransaction\", fields: [accountId], references: [id])\n}\n\nenum AccountType {\n  CREDIT\n  DEBIT\n  LOAN\n}\n\nenum PaymentType {\n  DEPOSIT\n  WITHDRAWAL\n  TRANSFER\n}\n\nenum TransactionStatus {\n  PENDING\n  COMPLETED\n  FAILED\n}\n\nenum TransactionType {\n  SEND\n  WITHDRAW\n}\n",
-  "inlineSchemaHash": "c1e1a50501b24f374626cd219e5ad6a710acc6c0dd35a40db8b54d2c9f4ff56f",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://postgres:mrc201@db:5432/be-assignment?schema=public\"\n}\n\nmodel Account {\n  id           String        @id @default(uuid())\n  userId       String\n  type         AccountType\n  balance      Float         @default(0.0)\n  transactions Transaction[] @relation(\"AccountTransaction\")\n  createdAt    DateTime      @default(now())\n  updatedAt    DateTime      @updatedAt\n}\n\nmodel Transaction {\n  id              String            @id @default(uuid())\n  userId          String\n  accountId       String\n  amount          Float\n  timestamp       DateTime          @default(now())\n  toAddress       String\n  status          TransactionStatus\n  transactionType TransactionType\n  createdAt       DateTime          @default(now())\n  updatedAt       DateTime          @updatedAt\n\n  account Account @relation(\"AccountTransaction\", fields: [accountId], references: [id])\n}\n\nenum AccountType {\n  CREDIT\n  DEBIT\n  LOAN\n}\n\nenum PaymentType {\n  DEPOSIT\n  WITHDRAWAL\n  TRANSFER\n}\n\nenum TransactionStatus {\n  PENDING\n  COMPLETED\n  FAILED\n}\n\nenum TransactionType {\n  SEND\n  WITHDRAW\n}\n",
+  "inlineSchemaHash": "d916ee6a7f374cb2130203195cdafe33f30d511b2695c058a5468e8ed9fd1de4",
   "copyEngine": true
 }
 
