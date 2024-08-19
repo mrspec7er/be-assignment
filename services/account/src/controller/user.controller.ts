@@ -3,7 +3,7 @@ import service from "../service/user.service";
 import response from "../utility/response";
 
 const userController = {
-  getUsers: getUser,
+  getUser,
   signUp,
   login,
 };
