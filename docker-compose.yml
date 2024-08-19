@@ -1,0 +1,89 @@
+version: "3.8"
+
+services:
+  database:
+    build: ./database
+    container_name: db
+    restart: always
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+
+  schema:
+    depends_on:
+      database:
+        condition: service_healthy
+    build:
+      context: ./services/schema
+      dockerfile: Dockerfile
+    container_name: schema
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - schema:/schema
+    develop:
+      watch:
+        - action: sync
+          path: ./schema
+          target: /schema
+          ignore:
+            - dist
+            - node_modules
+        - action: rebuild
+          path: ./schema/package.json
+
+  account:
+    depends_on:
+      database:
+        condition: service_healthy
+    build:
+      context: ./services/account
+      dockerfile: Dockerfile
+    container_name: account
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - schema:/schema
+    develop:
+      watch:
+        - action: sync
+          path: ./account
+          target: /account
+          ignore:
+            - dist
+            - node_modules
+        - action: rebuild
+          path: ./account/package.json
+  payment:
+    depends_on:
+      database:
+        condition: service_healthy
+    build:
+      context: ./services/payment
+      dockerfile: Dockerfile
+    container_name: payment
+    restart: always
+    ports:
+      - 3001:3001
+    volumes:
+      - schema:/schema
+    develop:
+      watch:
+        - action: sync
+          path: ./payment
+          target: /payment
+          ignore:
+            - dist
+            - node_modules
+        - action: rebuild
+          path: ./payment/package.json
+
+volumes:
+  db:
+  schema:
