@@ -2,9 +2,9 @@ import { FastifyInstance } from "fastify";
 import accountController from "../controller/account.controller";
 import authenticate from "../middleware/auth";
 
-export default async function userRoutes(fastify: FastifyInstance) {
-  fastify.get<{ Params: { userId: string } }>(
-    "/:userId",
+export default async function accountRoutes(fastify: FastifyInstance) {
+  fastify.get(
+    "/",
     { preHandler: [authenticate] },
     accountController.getUserAccount
   );

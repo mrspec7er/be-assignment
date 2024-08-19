@@ -8,13 +8,10 @@ const accountController = {
   createAccount,
 };
 
-async function getUserAccount(
-  req: FastifyRequest<{ Params: { userId: string } }>,
-  reply: FastifyReply
-) {
-  const { userId } = req.params;
+async function getUserAccount(req: FastifyRequest, reply: FastifyReply) {
+  const user = req.user;
   try {
-    const account = await service.getAccountsByUserId(userId);
+    const account = await service.getAccountsByUserId(user.id);
     return response.querySuccessResponse(reply, account);
   } catch (err: any) {
     return response.badRequestResponse(reply, err.message);
