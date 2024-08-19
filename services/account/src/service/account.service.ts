@@ -24,7 +24,7 @@ async function getAccountsByUserId(userId: string) {
   return prisma.account.findMany({
     where: { userId },
     include: {
-      paymentHistories: true,
+      transactions: true,
     },
   });
 }

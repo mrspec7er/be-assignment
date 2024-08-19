@@ -128,17 +128,10 @@ exports.Prisma.AccountScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PaymentHistoryScalarFieldEnum = {
-  id: 'id',
-  accountId: 'accountId',
-  amount: 'amount',
-  type: 'type',
-  timestamp: 'timestamp'
-};
-
 exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  accountId: 'accountId',
   amount: 'amount',
   timestamp: 'timestamp',
   toAddress: 'toAddress',
@@ -163,12 +156,6 @@ exports.AccountType = exports.$Enums.AccountType = {
   LOAN: 'LOAN'
 };
 
-exports.PaymentType = exports.$Enums.PaymentType = {
-  DEPOSIT: 'DEPOSIT',
-  WITHDRAWAL: 'WITHDRAWAL',
-  TRANSFER: 'TRANSFER'
-};
-
 exports.TransactionStatus = exports.$Enums.TransactionStatus = {
   PENDING: 'PENDING',
   COMPLETED: 'COMPLETED',
@@ -182,7 +169,6 @@ exports.TransactionType = exports.$Enums.TransactionType = {
 
 exports.Prisma.ModelName = {
   Account: 'Account',
-  PaymentHistory: 'PaymentHistory',
   Transaction: 'Transaction'
 };
 

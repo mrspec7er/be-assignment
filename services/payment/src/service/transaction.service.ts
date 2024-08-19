@@ -52,6 +52,7 @@ async function processTransaction(
     const transaction = await prisma.transaction.create({
       data: {
         userId: userId,
+        accountId: account.id,
         amount: payload.amount,
         timestamp: new Date(),
         toAddress: payload.toAddress || "",

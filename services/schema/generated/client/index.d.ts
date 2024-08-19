@@ -19,11 +19,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
 /**
- * Model PaymentHistory
- * 
- */
-export type PaymentHistory = $Result.DefaultSelection<Prisma.$PaymentHistoryPayload>
-/**
  * Model Transaction
  * 
  */
@@ -40,15 +35,6 @@ export namespace $Enums {
 };
 
 export type AccountType = (typeof AccountType)[keyof typeof AccountType]
-
-
-export const PaymentType: {
-  DEPOSIT: 'DEPOSIT',
-  WITHDRAWAL: 'WITHDRAWAL',
-  TRANSFER: 'TRANSFER'
-};
-
-export type PaymentType = (typeof PaymentType)[keyof typeof PaymentType]
 
 
 export const TransactionStatus: {
@@ -72,10 +58,6 @@ export type TransactionType = (typeof TransactionType)[keyof typeof TransactionT
 export type AccountType = $Enums.AccountType
 
 export const AccountType: typeof $Enums.AccountType
-
-export type PaymentType = $Enums.PaymentType
-
-export const PaymentType: typeof $Enums.PaymentType
 
 export type TransactionStatus = $Enums.TransactionStatus
 
@@ -216,16 +198,6 @@ export class PrismaClient<
     * ```
     */
   get account(): Prisma.AccountDelegate<ExtArgs>;
-
-  /**
-   * `prisma.paymentHistory`: Exposes CRUD operations for the **PaymentHistory** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more PaymentHistories
-    * const paymentHistories = await prisma.paymentHistory.findMany()
-    * ```
-    */
-  get paymentHistory(): Prisma.PaymentHistoryDelegate<ExtArgs>;
 
   /**
    * `prisma.transaction`: Exposes CRUD operations for the **Transaction** model.
@@ -714,7 +686,6 @@ export namespace Prisma {
 
   export const ModelName: {
     Account: 'Account',
-    PaymentHistory: 'PaymentHistory',
     Transaction: 'Transaction'
   };
 
@@ -731,7 +702,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "account" | "paymentHistory" | "transaction"
+      modelProps: "account" | "transaction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -802,76 +773,6 @@ export namespace Prisma {
           count: {
             args: Prisma.AccountCountArgs<ExtArgs>
             result: $Utils.Optional<AccountCountAggregateOutputType> | number
-          }
-        }
-      }
-      PaymentHistory: {
-        payload: Prisma.$PaymentHistoryPayload<ExtArgs>
-        fields: Prisma.PaymentHistoryFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.PaymentHistoryFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.PaymentHistoryFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
-          }
-          findFirst: {
-            args: Prisma.PaymentHistoryFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.PaymentHistoryFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
-          }
-          findMany: {
-            args: Prisma.PaymentHistoryFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>[]
-          }
-          create: {
-            args: Prisma.PaymentHistoryCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
-          }
-          createMany: {
-            args: Prisma.PaymentHistoryCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.PaymentHistoryCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>[]
-          }
-          delete: {
-            args: Prisma.PaymentHistoryDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
-          }
-          update: {
-            args: Prisma.PaymentHistoryUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
-          }
-          deleteMany: {
-            args: Prisma.PaymentHistoryDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.PaymentHistoryUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.PaymentHistoryUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentHistoryPayload>
-          }
-          aggregate: {
-            args: Prisma.PaymentHistoryAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePaymentHistory>
-          }
-          groupBy: {
-            args: Prisma.PaymentHistoryGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PaymentHistoryGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.PaymentHistoryCountArgs<ExtArgs>
-            result: $Utils.Optional<PaymentHistoryCountAggregateOutputType> | number
           }
         }
       }
@@ -1106,11 +1007,11 @@ export namespace Prisma {
    */
 
   export type AccountCountOutputType = {
-    paymentHistories: number
+    transactions: number
   }
 
   export type AccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    paymentHistories?: boolean | AccountCountOutputTypeCountPaymentHistoriesArgs
+    transactions?: boolean | AccountCountOutputTypeCountTransactionsArgs
   }
 
   // Custom InputTypes
@@ -1127,8 +1028,8 @@ export namespace Prisma {
   /**
    * AccountCountOutputType without action
    */
-  export type AccountCountOutputTypeCountPaymentHistoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PaymentHistoryWhereInput
+  export type AccountCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
   }
 
 
@@ -1342,7 +1243,7 @@ export namespace Prisma {
     balance?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    paymentHistories?: boolean | Account$paymentHistoriesArgs<ExtArgs>
+    transactions?: boolean | Account$transactionsArgs<ExtArgs>
     _count?: boolean | AccountCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
@@ -1365,7 +1266,7 @@ export namespace Prisma {
   }
 
   export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    paymentHistories?: boolean | Account$paymentHistoriesArgs<ExtArgs>
+    transactions?: boolean | Account$transactionsArgs<ExtArgs>
     _count?: boolean | AccountCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1373,7 +1274,7 @@ export namespace Prisma {
   export type $AccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Account"
     objects: {
-      paymentHistories: Prisma.$PaymentHistoryPayload<ExtArgs>[]
+      transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1746,7 +1647,7 @@ export namespace Prisma {
    */
   export interface Prisma__AccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    paymentHistories<T extends Account$paymentHistoriesArgs<ExtArgs> = {}>(args?: Subset<T, Account$paymentHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findMany"> | Null>
+    transactions<T extends Account$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Account$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2096,23 +1997,23 @@ export namespace Prisma {
   }
 
   /**
-   * Account.paymentHistories
+   * Account.transactions
    */
-  export type Account$paymentHistoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Account$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PaymentHistory
+     * Select specific fields to fetch from the Transaction
      */
-    select?: PaymentHistorySelect<ExtArgs> | null
+    select?: TransactionSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    where?: PaymentHistoryWhereInput
-    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
-    cursor?: PaymentHistoryWhereUniqueInput
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PaymentHistoryScalarFieldEnum | PaymentHistoryScalarFieldEnum[]
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
   }
 
   /**
@@ -2127,973 +2028,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AccountInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model PaymentHistory
-   */
-
-  export type AggregatePaymentHistory = {
-    _count: PaymentHistoryCountAggregateOutputType | null
-    _avg: PaymentHistoryAvgAggregateOutputType | null
-    _sum: PaymentHistorySumAggregateOutputType | null
-    _min: PaymentHistoryMinAggregateOutputType | null
-    _max: PaymentHistoryMaxAggregateOutputType | null
-  }
-
-  export type PaymentHistoryAvgAggregateOutputType = {
-    amount: number | null
-  }
-
-  export type PaymentHistorySumAggregateOutputType = {
-    amount: number | null
-  }
-
-  export type PaymentHistoryMinAggregateOutputType = {
-    id: string | null
-    accountId: string | null
-    amount: number | null
-    type: $Enums.PaymentType | null
-    timestamp: Date | null
-  }
-
-  export type PaymentHistoryMaxAggregateOutputType = {
-    id: string | null
-    accountId: string | null
-    amount: number | null
-    type: $Enums.PaymentType | null
-    timestamp: Date | null
-  }
-
-  export type PaymentHistoryCountAggregateOutputType = {
-    id: number
-    accountId: number
-    amount: number
-    type: number
-    timestamp: number
-    _all: number
-  }
-
-
-  export type PaymentHistoryAvgAggregateInputType = {
-    amount?: true
-  }
-
-  export type PaymentHistorySumAggregateInputType = {
-    amount?: true
-  }
-
-  export type PaymentHistoryMinAggregateInputType = {
-    id?: true
-    accountId?: true
-    amount?: true
-    type?: true
-    timestamp?: true
-  }
-
-  export type PaymentHistoryMaxAggregateInputType = {
-    id?: true
-    accountId?: true
-    amount?: true
-    type?: true
-    timestamp?: true
-  }
-
-  export type PaymentHistoryCountAggregateInputType = {
-    id?: true
-    accountId?: true
-    amount?: true
-    type?: true
-    timestamp?: true
-    _all?: true
-  }
-
-  export type PaymentHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which PaymentHistory to aggregate.
-     */
-    where?: PaymentHistoryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of PaymentHistories to fetch.
-     */
-    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: PaymentHistoryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` PaymentHistories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` PaymentHistories.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned PaymentHistories
-    **/
-    _count?: true | PaymentHistoryCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: PaymentHistoryAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: PaymentHistorySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: PaymentHistoryMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: PaymentHistoryMaxAggregateInputType
-  }
-
-  export type GetPaymentHistoryAggregateType<T extends PaymentHistoryAggregateArgs> = {
-        [P in keyof T & keyof AggregatePaymentHistory]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregatePaymentHistory[P]>
-      : GetScalarType<T[P], AggregatePaymentHistory[P]>
-  }
-
-
-
-
-  export type PaymentHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PaymentHistoryWhereInput
-    orderBy?: PaymentHistoryOrderByWithAggregationInput | PaymentHistoryOrderByWithAggregationInput[]
-    by: PaymentHistoryScalarFieldEnum[] | PaymentHistoryScalarFieldEnum
-    having?: PaymentHistoryScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: PaymentHistoryCountAggregateInputType | true
-    _avg?: PaymentHistoryAvgAggregateInputType
-    _sum?: PaymentHistorySumAggregateInputType
-    _min?: PaymentHistoryMinAggregateInputType
-    _max?: PaymentHistoryMaxAggregateInputType
-  }
-
-  export type PaymentHistoryGroupByOutputType = {
-    id: string
-    accountId: string
-    amount: number
-    type: $Enums.PaymentType
-    timestamp: Date
-    _count: PaymentHistoryCountAggregateOutputType | null
-    _avg: PaymentHistoryAvgAggregateOutputType | null
-    _sum: PaymentHistorySumAggregateOutputType | null
-    _min: PaymentHistoryMinAggregateOutputType | null
-    _max: PaymentHistoryMaxAggregateOutputType | null
-  }
-
-  type GetPaymentHistoryGroupByPayload<T extends PaymentHistoryGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<PaymentHistoryGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof PaymentHistoryGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], PaymentHistoryGroupByOutputType[P]>
-            : GetScalarType<T[P], PaymentHistoryGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type PaymentHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    accountId?: boolean
-    amount?: boolean
-    type?: boolean
-    timestamp?: boolean
-    account?: boolean | AccountDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["paymentHistory"]>
-
-  export type PaymentHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    accountId?: boolean
-    amount?: boolean
-    type?: boolean
-    timestamp?: boolean
-    account?: boolean | AccountDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["paymentHistory"]>
-
-  export type PaymentHistorySelectScalar = {
-    id?: boolean
-    accountId?: boolean
-    amount?: boolean
-    type?: boolean
-    timestamp?: boolean
-  }
-
-  export type PaymentHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    account?: boolean | AccountDefaultArgs<ExtArgs>
-  }
-  export type PaymentHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    account?: boolean | AccountDefaultArgs<ExtArgs>
-  }
-
-  export type $PaymentHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "PaymentHistory"
-    objects: {
-      account: Prisma.$AccountPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      accountId: string
-      amount: number
-      type: $Enums.PaymentType
-      timestamp: Date
-    }, ExtArgs["result"]["paymentHistory"]>
-    composites: {}
-  }
-
-  type PaymentHistoryGetPayload<S extends boolean | null | undefined | PaymentHistoryDefaultArgs> = $Result.GetResult<Prisma.$PaymentHistoryPayload, S>
-
-  type PaymentHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<PaymentHistoryFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: PaymentHistoryCountAggregateInputType | true
-    }
-
-  export interface PaymentHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PaymentHistory'], meta: { name: 'PaymentHistory' } }
-    /**
-     * Find zero or one PaymentHistory that matches the filter.
-     * @param {PaymentHistoryFindUniqueArgs} args - Arguments to find a PaymentHistory
-     * @example
-     * // Get one PaymentHistory
-     * const paymentHistory = await prisma.paymentHistory.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends PaymentHistoryFindUniqueArgs>(args: SelectSubset<T, PaymentHistoryFindUniqueArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
-
-    /**
-     * Find one PaymentHistory that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {PaymentHistoryFindUniqueOrThrowArgs} args - Arguments to find a PaymentHistory
-     * @example
-     * // Get one PaymentHistory
-     * const paymentHistory = await prisma.paymentHistory.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends PaymentHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, PaymentHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
-
-    /**
-     * Find the first PaymentHistory that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentHistoryFindFirstArgs} args - Arguments to find a PaymentHistory
-     * @example
-     * // Get one PaymentHistory
-     * const paymentHistory = await prisma.paymentHistory.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends PaymentHistoryFindFirstArgs>(args?: SelectSubset<T, PaymentHistoryFindFirstArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
-
-    /**
-     * Find the first PaymentHistory that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentHistoryFindFirstOrThrowArgs} args - Arguments to find a PaymentHistory
-     * @example
-     * // Get one PaymentHistory
-     * const paymentHistory = await prisma.paymentHistory.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends PaymentHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, PaymentHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
-
-    /**
-     * Find zero or more PaymentHistories that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all PaymentHistories
-     * const paymentHistories = await prisma.paymentHistory.findMany()
-     * 
-     * // Get first 10 PaymentHistories
-     * const paymentHistories = await prisma.paymentHistory.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const paymentHistoryWithIdOnly = await prisma.paymentHistory.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends PaymentHistoryFindManyArgs>(args?: SelectSubset<T, PaymentHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "findMany">>
-
-    /**
-     * Create a PaymentHistory.
-     * @param {PaymentHistoryCreateArgs} args - Arguments to create a PaymentHistory.
-     * @example
-     * // Create one PaymentHistory
-     * const PaymentHistory = await prisma.paymentHistory.create({
-     *   data: {
-     *     // ... data to create a PaymentHistory
-     *   }
-     * })
-     * 
-     */
-    create<T extends PaymentHistoryCreateArgs>(args: SelectSubset<T, PaymentHistoryCreateArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "create">, never, ExtArgs>
-
-    /**
-     * Create many PaymentHistories.
-     * @param {PaymentHistoryCreateManyArgs} args - Arguments to create many PaymentHistories.
-     * @example
-     * // Create many PaymentHistories
-     * const paymentHistory = await prisma.paymentHistory.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends PaymentHistoryCreateManyArgs>(args?: SelectSubset<T, PaymentHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many PaymentHistories and returns the data saved in the database.
-     * @param {PaymentHistoryCreateManyAndReturnArgs} args - Arguments to create many PaymentHistories.
-     * @example
-     * // Create many PaymentHistories
-     * const paymentHistory = await prisma.paymentHistory.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many PaymentHistories and only return the `id`
-     * const paymentHistoryWithIdOnly = await prisma.paymentHistory.createManyAndReturn({ 
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends PaymentHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, PaymentHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "createManyAndReturn">>
-
-    /**
-     * Delete a PaymentHistory.
-     * @param {PaymentHistoryDeleteArgs} args - Arguments to delete one PaymentHistory.
-     * @example
-     * // Delete one PaymentHistory
-     * const PaymentHistory = await prisma.paymentHistory.delete({
-     *   where: {
-     *     // ... filter to delete one PaymentHistory
-     *   }
-     * })
-     * 
-     */
-    delete<T extends PaymentHistoryDeleteArgs>(args: SelectSubset<T, PaymentHistoryDeleteArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
-
-    /**
-     * Update one PaymentHistory.
-     * @param {PaymentHistoryUpdateArgs} args - Arguments to update one PaymentHistory.
-     * @example
-     * // Update one PaymentHistory
-     * const paymentHistory = await prisma.paymentHistory.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends PaymentHistoryUpdateArgs>(args: SelectSubset<T, PaymentHistoryUpdateArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "update">, never, ExtArgs>
-
-    /**
-     * Delete zero or more PaymentHistories.
-     * @param {PaymentHistoryDeleteManyArgs} args - Arguments to filter PaymentHistories to delete.
-     * @example
-     * // Delete a few PaymentHistories
-     * const { count } = await prisma.paymentHistory.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends PaymentHistoryDeleteManyArgs>(args?: SelectSubset<T, PaymentHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more PaymentHistories.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentHistoryUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many PaymentHistories
-     * const paymentHistory = await prisma.paymentHistory.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends PaymentHistoryUpdateManyArgs>(args: SelectSubset<T, PaymentHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one PaymentHistory.
-     * @param {PaymentHistoryUpsertArgs} args - Arguments to update or create a PaymentHistory.
-     * @example
-     * // Update or create a PaymentHistory
-     * const paymentHistory = await prisma.paymentHistory.upsert({
-     *   create: {
-     *     // ... data to create a PaymentHistory
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the PaymentHistory we want to update
-     *   }
-     * })
-     */
-    upsert<T extends PaymentHistoryUpsertArgs>(args: SelectSubset<T, PaymentHistoryUpsertArgs<ExtArgs>>): Prisma__PaymentHistoryClient<$Result.GetResult<Prisma.$PaymentHistoryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
-
-    /**
-     * Count the number of PaymentHistories.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentHistoryCountArgs} args - Arguments to filter PaymentHistories to count.
-     * @example
-     * // Count the number of PaymentHistories
-     * const count = await prisma.paymentHistory.count({
-     *   where: {
-     *     // ... the filter for the PaymentHistories we want to count
-     *   }
-     * })
-    **/
-    count<T extends PaymentHistoryCountArgs>(
-      args?: Subset<T, PaymentHistoryCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], PaymentHistoryCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a PaymentHistory.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends PaymentHistoryAggregateArgs>(args: Subset<T, PaymentHistoryAggregateArgs>): Prisma.PrismaPromise<GetPaymentHistoryAggregateType<T>>
-
-    /**
-     * Group by PaymentHistory.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentHistoryGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends PaymentHistoryGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PaymentHistoryGroupByArgs['orderBy'] }
-        : { orderBy?: PaymentHistoryGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, PaymentHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the PaymentHistory model
-   */
-  readonly fields: PaymentHistoryFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for PaymentHistory.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__PaymentHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    account<T extends AccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AccountDefaultArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the PaymentHistory model
-   */ 
-  interface PaymentHistoryFieldRefs {
-    readonly id: FieldRef<"PaymentHistory", 'String'>
-    readonly accountId: FieldRef<"PaymentHistory", 'String'>
-    readonly amount: FieldRef<"PaymentHistory", 'Float'>
-    readonly type: FieldRef<"PaymentHistory", 'PaymentType'>
-    readonly timestamp: FieldRef<"PaymentHistory", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * PaymentHistory findUnique
-   */
-  export type PaymentHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    /**
-     * Filter, which PaymentHistory to fetch.
-     */
-    where: PaymentHistoryWhereUniqueInput
-  }
-
-  /**
-   * PaymentHistory findUniqueOrThrow
-   */
-  export type PaymentHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    /**
-     * Filter, which PaymentHistory to fetch.
-     */
-    where: PaymentHistoryWhereUniqueInput
-  }
-
-  /**
-   * PaymentHistory findFirst
-   */
-  export type PaymentHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    /**
-     * Filter, which PaymentHistory to fetch.
-     */
-    where?: PaymentHistoryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of PaymentHistories to fetch.
-     */
-    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for PaymentHistories.
-     */
-    cursor?: PaymentHistoryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` PaymentHistories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` PaymentHistories.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of PaymentHistories.
-     */
-    distinct?: PaymentHistoryScalarFieldEnum | PaymentHistoryScalarFieldEnum[]
-  }
-
-  /**
-   * PaymentHistory findFirstOrThrow
-   */
-  export type PaymentHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    /**
-     * Filter, which PaymentHistory to fetch.
-     */
-    where?: PaymentHistoryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of PaymentHistories to fetch.
-     */
-    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for PaymentHistories.
-     */
-    cursor?: PaymentHistoryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` PaymentHistories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` PaymentHistories.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of PaymentHistories.
-     */
-    distinct?: PaymentHistoryScalarFieldEnum | PaymentHistoryScalarFieldEnum[]
-  }
-
-  /**
-   * PaymentHistory findMany
-   */
-  export type PaymentHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    /**
-     * Filter, which PaymentHistories to fetch.
-     */
-    where?: PaymentHistoryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of PaymentHistories to fetch.
-     */
-    orderBy?: PaymentHistoryOrderByWithRelationInput | PaymentHistoryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing PaymentHistories.
-     */
-    cursor?: PaymentHistoryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` PaymentHistories from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` PaymentHistories.
-     */
-    skip?: number
-    distinct?: PaymentHistoryScalarFieldEnum | PaymentHistoryScalarFieldEnum[]
-  }
-
-  /**
-   * PaymentHistory create
-   */
-  export type PaymentHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    /**
-     * The data needed to create a PaymentHistory.
-     */
-    data: XOR<PaymentHistoryCreateInput, PaymentHistoryUncheckedCreateInput>
-  }
-
-  /**
-   * PaymentHistory createMany
-   */
-  export type PaymentHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many PaymentHistories.
-     */
-    data: PaymentHistoryCreateManyInput | PaymentHistoryCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * PaymentHistory createManyAndReturn
-   */
-  export type PaymentHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many PaymentHistories.
-     */
-    data: PaymentHistoryCreateManyInput | PaymentHistoryCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * PaymentHistory update
-   */
-  export type PaymentHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    /**
-     * The data needed to update a PaymentHistory.
-     */
-    data: XOR<PaymentHistoryUpdateInput, PaymentHistoryUncheckedUpdateInput>
-    /**
-     * Choose, which PaymentHistory to update.
-     */
-    where: PaymentHistoryWhereUniqueInput
-  }
-
-  /**
-   * PaymentHistory updateMany
-   */
-  export type PaymentHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update PaymentHistories.
-     */
-    data: XOR<PaymentHistoryUpdateManyMutationInput, PaymentHistoryUncheckedUpdateManyInput>
-    /**
-     * Filter which PaymentHistories to update
-     */
-    where?: PaymentHistoryWhereInput
-  }
-
-  /**
-   * PaymentHistory upsert
-   */
-  export type PaymentHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    /**
-     * The filter to search for the PaymentHistory to update in case it exists.
-     */
-    where: PaymentHistoryWhereUniqueInput
-    /**
-     * In case the PaymentHistory found by the `where` argument doesn't exist, create a new PaymentHistory with this data.
-     */
-    create: XOR<PaymentHistoryCreateInput, PaymentHistoryUncheckedCreateInput>
-    /**
-     * In case the PaymentHistory was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<PaymentHistoryUpdateInput, PaymentHistoryUncheckedUpdateInput>
-  }
-
-  /**
-   * PaymentHistory delete
-   */
-  export type PaymentHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
-    /**
-     * Filter which PaymentHistory to delete.
-     */
-    where: PaymentHistoryWhereUniqueInput
-  }
-
-  /**
-   * PaymentHistory deleteMany
-   */
-  export type PaymentHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which PaymentHistories to delete
-     */
-    where?: PaymentHistoryWhereInput
-  }
-
-  /**
-   * PaymentHistory without action
-   */
-  export type PaymentHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PaymentHistory
-     */
-    select?: PaymentHistorySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentHistoryInclude<ExtArgs> | null
   }
 
 
@@ -3120,6 +2054,7 @@ export namespace Prisma {
   export type TransactionMinAggregateOutputType = {
     id: string | null
     userId: string | null
+    accountId: string | null
     amount: number | null
     timestamp: Date | null
     toAddress: string | null
@@ -3132,6 +2067,7 @@ export namespace Prisma {
   export type TransactionMaxAggregateOutputType = {
     id: string | null
     userId: string | null
+    accountId: string | null
     amount: number | null
     timestamp: Date | null
     toAddress: string | null
@@ -3144,6 +2080,7 @@ export namespace Prisma {
   export type TransactionCountAggregateOutputType = {
     id: number
     userId: number
+    accountId: number
     amount: number
     timestamp: number
     toAddress: number
@@ -3166,6 +2103,7 @@ export namespace Prisma {
   export type TransactionMinAggregateInputType = {
     id?: true
     userId?: true
+    accountId?: true
     amount?: true
     timestamp?: true
     toAddress?: true
@@ -3178,6 +2116,7 @@ export namespace Prisma {
   export type TransactionMaxAggregateInputType = {
     id?: true
     userId?: true
+    accountId?: true
     amount?: true
     timestamp?: true
     toAddress?: true
@@ -3190,6 +2129,7 @@ export namespace Prisma {
   export type TransactionCountAggregateInputType = {
     id?: true
     userId?: true
+    accountId?: true
     amount?: true
     timestamp?: true
     toAddress?: true
@@ -3289,6 +2229,7 @@ export namespace Prisma {
   export type TransactionGroupByOutputType = {
     id: string
     userId: string
+    accountId: string
     amount: number
     timestamp: Date
     toAddress: string
@@ -3320,6 +2261,7 @@ export namespace Prisma {
   export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    accountId?: boolean
     amount?: boolean
     timestamp?: boolean
     toAddress?: boolean
@@ -3327,11 +2269,13 @@ export namespace Prisma {
     transactionType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    account?: boolean | AccountDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    accountId?: boolean
     amount?: boolean
     timestamp?: boolean
     toAddress?: boolean
@@ -3339,11 +2283,13 @@ export namespace Prisma {
     transactionType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    account?: boolean | AccountDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectScalar = {
     id?: boolean
     userId?: boolean
+    accountId?: boolean
     amount?: boolean
     timestamp?: boolean
     toAddress?: boolean
@@ -3353,13 +2299,22 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
+  export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    account?: boolean | AccountDefaultArgs<ExtArgs>
+  }
+  export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    account?: boolean | AccountDefaultArgs<ExtArgs>
+  }
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
-    objects: {}
+    objects: {
+      account: Prisma.$AccountPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
+      accountId: string
       amount: number
       timestamp: Date
       toAddress: string
@@ -3731,6 +2686,7 @@ export namespace Prisma {
    */
   export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    account<T extends AccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AccountDefaultArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3762,6 +2718,7 @@ export namespace Prisma {
   interface TransactionFieldRefs {
     readonly id: FieldRef<"Transaction", 'String'>
     readonly userId: FieldRef<"Transaction", 'String'>
+    readonly accountId: FieldRef<"Transaction", 'String'>
     readonly amount: FieldRef<"Transaction", 'Float'>
     readonly timestamp: FieldRef<"Transaction", 'DateTime'>
     readonly toAddress: FieldRef<"Transaction", 'String'>
@@ -3782,6 +2739,10 @@ export namespace Prisma {
      */
     select?: TransactionSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * Filter, which Transaction to fetch.
      */
     where: TransactionWhereUniqueInput
@@ -3796,6 +2757,10 @@ export namespace Prisma {
      */
     select?: TransactionSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * Filter, which Transaction to fetch.
      */
     where: TransactionWhereUniqueInput
@@ -3809,6 +2774,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Transaction
      */
     select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
     /**
      * Filter, which Transaction to fetch.
      */
@@ -3854,6 +2823,10 @@ export namespace Prisma {
      */
     select?: TransactionSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * Filter, which Transaction to fetch.
      */
     where?: TransactionWhereInput
@@ -3898,6 +2871,10 @@ export namespace Prisma {
      */
     select?: TransactionSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * Filter, which Transactions to fetch.
      */
     where?: TransactionWhereInput
@@ -3937,6 +2914,10 @@ export namespace Prisma {
      */
     select?: TransactionSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * The data needed to create a Transaction.
      */
     data: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
@@ -3966,6 +2947,10 @@ export namespace Prisma {
      */
     data: TransactionCreateManyInput | TransactionCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3976,6 +2961,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Transaction
      */
     select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
     /**
      * The data needed to update a Transaction.
      */
@@ -4009,6 +2998,10 @@ export namespace Prisma {
      */
     select?: TransactionSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
      * The filter to search for the Transaction to update in case it exists.
      */
     where: TransactionWhereUniqueInput
@@ -4030,6 +3023,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Transaction
      */
     select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
     /**
      * Filter which Transaction to delete.
      */
@@ -4054,6 +3051,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Transaction
      */
     select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
   }
 
 
@@ -4083,20 +3084,10 @@ export namespace Prisma {
   export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
 
 
-  export const PaymentHistoryScalarFieldEnum: {
-    id: 'id',
-    accountId: 'accountId',
-    amount: 'amount',
-    type: 'type',
-    timestamp: 'timestamp'
-  };
-
-  export type PaymentHistoryScalarFieldEnum = (typeof PaymentHistoryScalarFieldEnum)[keyof typeof PaymentHistoryScalarFieldEnum]
-
-
   export const TransactionScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    accountId: 'accountId',
     amount: 'amount',
     timestamp: 'timestamp',
     toAddress: 'toAddress',
@@ -4187,20 +3178,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'PaymentType'
-   */
-  export type EnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType'>
-    
-
-
-  /**
-   * Reference to a field of type 'PaymentType[]'
-   */
-  export type ListEnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType[]'>
-    
-
-
-  /**
    * Reference to a field of type 'TransactionStatus'
    */
   export type EnumTransactionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionStatus'>
@@ -4255,7 +3232,7 @@ export namespace Prisma {
     balance?: FloatFilter<"Account"> | number
     createdAt?: DateTimeFilter<"Account"> | Date | string
     updatedAt?: DateTimeFilter<"Account"> | Date | string
-    paymentHistories?: PaymentHistoryListRelationFilter
+    transactions?: TransactionListRelationFilter
   }
 
   export type AccountOrderByWithRelationInput = {
@@ -4265,7 +3242,7 @@ export namespace Prisma {
     balance?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    paymentHistories?: PaymentHistoryOrderByRelationAggregateInput
+    transactions?: TransactionOrderByRelationAggregateInput
   }
 
   export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -4278,7 +3255,7 @@ export namespace Prisma {
     balance?: FloatFilter<"Account"> | number
     createdAt?: DateTimeFilter<"Account"> | Date | string
     updatedAt?: DateTimeFilter<"Account"> | Date | string
-    paymentHistories?: PaymentHistoryListRelationFilter
+    transactions?: TransactionListRelationFilter
   }, "id">
 
   export type AccountOrderByWithAggregationInput = {
@@ -4307,69 +3284,13 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Account"> | Date | string
   }
 
-  export type PaymentHistoryWhereInput = {
-    AND?: PaymentHistoryWhereInput | PaymentHistoryWhereInput[]
-    OR?: PaymentHistoryWhereInput[]
-    NOT?: PaymentHistoryWhereInput | PaymentHistoryWhereInput[]
-    id?: StringFilter<"PaymentHistory"> | string
-    accountId?: StringFilter<"PaymentHistory"> | string
-    amount?: FloatFilter<"PaymentHistory"> | number
-    type?: EnumPaymentTypeFilter<"PaymentHistory"> | $Enums.PaymentType
-    timestamp?: DateTimeFilter<"PaymentHistory"> | Date | string
-    account?: XOR<AccountRelationFilter, AccountWhereInput>
-  }
-
-  export type PaymentHistoryOrderByWithRelationInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    amount?: SortOrder
-    type?: SortOrder
-    timestamp?: SortOrder
-    account?: AccountOrderByWithRelationInput
-  }
-
-  export type PaymentHistoryWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: PaymentHistoryWhereInput | PaymentHistoryWhereInput[]
-    OR?: PaymentHistoryWhereInput[]
-    NOT?: PaymentHistoryWhereInput | PaymentHistoryWhereInput[]
-    accountId?: StringFilter<"PaymentHistory"> | string
-    amount?: FloatFilter<"PaymentHistory"> | number
-    type?: EnumPaymentTypeFilter<"PaymentHistory"> | $Enums.PaymentType
-    timestamp?: DateTimeFilter<"PaymentHistory"> | Date | string
-    account?: XOR<AccountRelationFilter, AccountWhereInput>
-  }, "id">
-
-  export type PaymentHistoryOrderByWithAggregationInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    amount?: SortOrder
-    type?: SortOrder
-    timestamp?: SortOrder
-    _count?: PaymentHistoryCountOrderByAggregateInput
-    _avg?: PaymentHistoryAvgOrderByAggregateInput
-    _max?: PaymentHistoryMaxOrderByAggregateInput
-    _min?: PaymentHistoryMinOrderByAggregateInput
-    _sum?: PaymentHistorySumOrderByAggregateInput
-  }
-
-  export type PaymentHistoryScalarWhereWithAggregatesInput = {
-    AND?: PaymentHistoryScalarWhereWithAggregatesInput | PaymentHistoryScalarWhereWithAggregatesInput[]
-    OR?: PaymentHistoryScalarWhereWithAggregatesInput[]
-    NOT?: PaymentHistoryScalarWhereWithAggregatesInput | PaymentHistoryScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"PaymentHistory"> | string
-    accountId?: StringWithAggregatesFilter<"PaymentHistory"> | string
-    amount?: FloatWithAggregatesFilter<"PaymentHistory"> | number
-    type?: EnumPaymentTypeWithAggregatesFilter<"PaymentHistory"> | $Enums.PaymentType
-    timestamp?: DateTimeWithAggregatesFilter<"PaymentHistory"> | Date | string
-  }
-
   export type TransactionWhereInput = {
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     id?: StringFilter<"Transaction"> | string
     userId?: StringFilter<"Transaction"> | string
+    accountId?: StringFilter<"Transaction"> | string
     amount?: FloatFilter<"Transaction"> | number
     timestamp?: DateTimeFilter<"Transaction"> | Date | string
     toAddress?: StringFilter<"Transaction"> | string
@@ -4377,11 +3298,13 @@ export namespace Prisma {
     transactionType?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
+    account?: XOR<AccountRelationFilter, AccountWhereInput>
   }
 
   export type TransactionOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountId?: SortOrder
     amount?: SortOrder
     timestamp?: SortOrder
     toAddress?: SortOrder
@@ -4389,6 +3312,7 @@ export namespace Prisma {
     transactionType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    account?: AccountOrderByWithRelationInput
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -4397,6 +3321,7 @@ export namespace Prisma {
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     userId?: StringFilter<"Transaction"> | string
+    accountId?: StringFilter<"Transaction"> | string
     amount?: FloatFilter<"Transaction"> | number
     timestamp?: DateTimeFilter<"Transaction"> | Date | string
     toAddress?: StringFilter<"Transaction"> | string
@@ -4404,11 +3329,13 @@ export namespace Prisma {
     transactionType?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
+    account?: XOR<AccountRelationFilter, AccountWhereInput>
   }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountId?: SortOrder
     amount?: SortOrder
     timestamp?: SortOrder
     toAddress?: SortOrder
@@ -4429,6 +3356,7 @@ export namespace Prisma {
     NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Transaction"> | string
     userId?: StringWithAggregatesFilter<"Transaction"> | string
+    accountId?: StringWithAggregatesFilter<"Transaction"> | string
     amount?: FloatWithAggregatesFilter<"Transaction"> | number
     timestamp?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     toAddress?: StringWithAggregatesFilter<"Transaction"> | string
@@ -4445,7 +3373,7 @@ export namespace Prisma {
     balance?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    paymentHistories?: PaymentHistoryCreateNestedManyWithoutAccountInput
+    transactions?: TransactionCreateNestedManyWithoutAccountInput
   }
 
   export type AccountUncheckedCreateInput = {
@@ -4455,7 +3383,7 @@ export namespace Prisma {
     balance?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    paymentHistories?: PaymentHistoryUncheckedCreateNestedManyWithoutAccountInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAccountInput
   }
 
   export type AccountUpdateInput = {
@@ -4465,7 +3393,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentHistories?: PaymentHistoryUpdateManyWithoutAccountNestedInput
+    transactions?: TransactionUpdateManyWithoutAccountNestedInput
   }
 
   export type AccountUncheckedUpdateInput = {
@@ -4475,7 +3403,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentHistories?: PaymentHistoryUncheckedUpdateManyWithoutAccountNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAccountNestedInput
   }
 
   export type AccountCreateManyInput = {
@@ -4505,61 +3433,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PaymentHistoryCreateInput = {
-    id?: string
-    amount: number
-    type: $Enums.PaymentType
-    timestamp?: Date | string
-    account: AccountCreateNestedOneWithoutPaymentHistoriesInput
-  }
-
-  export type PaymentHistoryUncheckedCreateInput = {
-    id?: string
-    accountId: string
-    amount: number
-    type: $Enums.PaymentType
-    timestamp?: Date | string
-  }
-
-  export type PaymentHistoryUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    type?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    account?: AccountUpdateOneRequiredWithoutPaymentHistoriesNestedInput
-  }
-
-  export type PaymentHistoryUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    type?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PaymentHistoryCreateManyInput = {
-    id?: string
-    accountId: string
-    amount: number
-    type: $Enums.PaymentType
-    timestamp?: Date | string
-  }
-
-  export type PaymentHistoryUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    type?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PaymentHistoryUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    type?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type TransactionCreateInput = {
     id?: string
     userId: string
@@ -4570,11 +3443,13 @@ export namespace Prisma {
     transactionType: $Enums.TransactionType
     createdAt?: Date | string
     updatedAt?: Date | string
+    account: AccountCreateNestedOneWithoutTransactionsInput
   }
 
   export type TransactionUncheckedCreateInput = {
     id?: string
     userId: string
+    accountId: string
     amount: number
     timestamp?: Date | string
     toAddress: string
@@ -4594,11 +3469,13 @@ export namespace Prisma {
     transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    account?: AccountUpdateOneRequiredWithoutTransactionsNestedInput
   }
 
   export type TransactionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     toAddress?: StringFieldUpdateOperationsInput | string
@@ -4611,6 +3488,7 @@ export namespace Prisma {
   export type TransactionCreateManyInput = {
     id?: string
     userId: string
+    accountId: string
     amount: number
     timestamp?: Date | string
     toAddress: string
@@ -4635,6 +3513,7 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     toAddress?: StringFieldUpdateOperationsInput | string
@@ -4688,13 +3567,13 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type PaymentHistoryListRelationFilter = {
-    every?: PaymentHistoryWhereInput
-    some?: PaymentHistoryWhereInput
-    none?: PaymentHistoryWhereInput
+  export type TransactionListRelationFilter = {
+    every?: TransactionWhereInput
+    some?: TransactionWhereInput
+    none?: TransactionWhereInput
   }
 
-  export type PaymentHistoryOrderByRelationAggregateInput = {
+  export type TransactionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -4791,60 +3670,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumPaymentTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentType | EnumPaymentTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentTypeFilter<$PrismaModel> | $Enums.PaymentType
-  }
-
-  export type AccountRelationFilter = {
-    is?: AccountWhereInput
-    isNot?: AccountWhereInput
-  }
-
-  export type PaymentHistoryCountOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    amount?: SortOrder
-    type?: SortOrder
-    timestamp?: SortOrder
-  }
-
-  export type PaymentHistoryAvgOrderByAggregateInput = {
-    amount?: SortOrder
-  }
-
-  export type PaymentHistoryMaxOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    amount?: SortOrder
-    type?: SortOrder
-    timestamp?: SortOrder
-  }
-
-  export type PaymentHistoryMinOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    amount?: SortOrder
-    type?: SortOrder
-    timestamp?: SortOrder
-  }
-
-  export type PaymentHistorySumOrderByAggregateInput = {
-    amount?: SortOrder
-  }
-
-  export type EnumPaymentTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentType | EnumPaymentTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentTypeWithAggregatesFilter<$PrismaModel> | $Enums.PaymentType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPaymentTypeFilter<$PrismaModel>
-    _max?: NestedEnumPaymentTypeFilter<$PrismaModel>
-  }
-
   export type EnumTransactionStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
@@ -4859,9 +3684,15 @@ export namespace Prisma {
     not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
   }
 
+  export type AccountRelationFilter = {
+    is?: AccountWhereInput
+    isNot?: AccountWhereInput
+  }
+
   export type TransactionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountId?: SortOrder
     amount?: SortOrder
     timestamp?: SortOrder
     toAddress?: SortOrder
@@ -4878,6 +3709,7 @@ export namespace Prisma {
   export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountId?: SortOrder
     amount?: SortOrder
     timestamp?: SortOrder
     toAddress?: SortOrder
@@ -4890,6 +3722,7 @@ export namespace Prisma {
   export type TransactionMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    accountId?: SortOrder
     amount?: SortOrder
     timestamp?: SortOrder
     toAddress?: SortOrder
@@ -4923,18 +3756,18 @@ export namespace Prisma {
     _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
   }
 
-  export type PaymentHistoryCreateNestedManyWithoutAccountInput = {
-    create?: XOR<PaymentHistoryCreateWithoutAccountInput, PaymentHistoryUncheckedCreateWithoutAccountInput> | PaymentHistoryCreateWithoutAccountInput[] | PaymentHistoryUncheckedCreateWithoutAccountInput[]
-    connectOrCreate?: PaymentHistoryCreateOrConnectWithoutAccountInput | PaymentHistoryCreateOrConnectWithoutAccountInput[]
-    createMany?: PaymentHistoryCreateManyAccountInputEnvelope
-    connect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+  export type TransactionCreateNestedManyWithoutAccountInput = {
+    create?: XOR<TransactionCreateWithoutAccountInput, TransactionUncheckedCreateWithoutAccountInput> | TransactionCreateWithoutAccountInput[] | TransactionUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAccountInput | TransactionCreateOrConnectWithoutAccountInput[]
+    createMany?: TransactionCreateManyAccountInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-  export type PaymentHistoryUncheckedCreateNestedManyWithoutAccountInput = {
-    create?: XOR<PaymentHistoryCreateWithoutAccountInput, PaymentHistoryUncheckedCreateWithoutAccountInput> | PaymentHistoryCreateWithoutAccountInput[] | PaymentHistoryUncheckedCreateWithoutAccountInput[]
-    connectOrCreate?: PaymentHistoryCreateOrConnectWithoutAccountInput | PaymentHistoryCreateOrConnectWithoutAccountInput[]
-    createMany?: PaymentHistoryCreateManyAccountInputEnvelope
-    connect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
+  export type TransactionUncheckedCreateNestedManyWithoutAccountInput = {
+    create?: XOR<TransactionCreateWithoutAccountInput, TransactionUncheckedCreateWithoutAccountInput> | TransactionCreateWithoutAccountInput[] | TransactionUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAccountInput | TransactionCreateOrConnectWithoutAccountInput[]
+    createMany?: TransactionCreateManyAccountInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -4957,50 +3790,38 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type PaymentHistoryUpdateManyWithoutAccountNestedInput = {
-    create?: XOR<PaymentHistoryCreateWithoutAccountInput, PaymentHistoryUncheckedCreateWithoutAccountInput> | PaymentHistoryCreateWithoutAccountInput[] | PaymentHistoryUncheckedCreateWithoutAccountInput[]
-    connectOrCreate?: PaymentHistoryCreateOrConnectWithoutAccountInput | PaymentHistoryCreateOrConnectWithoutAccountInput[]
-    upsert?: PaymentHistoryUpsertWithWhereUniqueWithoutAccountInput | PaymentHistoryUpsertWithWhereUniqueWithoutAccountInput[]
-    createMany?: PaymentHistoryCreateManyAccountInputEnvelope
-    set?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
-    disconnect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
-    delete?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
-    connect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
-    update?: PaymentHistoryUpdateWithWhereUniqueWithoutAccountInput | PaymentHistoryUpdateWithWhereUniqueWithoutAccountInput[]
-    updateMany?: PaymentHistoryUpdateManyWithWhereWithoutAccountInput | PaymentHistoryUpdateManyWithWhereWithoutAccountInput[]
-    deleteMany?: PaymentHistoryScalarWhereInput | PaymentHistoryScalarWhereInput[]
+  export type TransactionUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<TransactionCreateWithoutAccountInput, TransactionUncheckedCreateWithoutAccountInput> | TransactionCreateWithoutAccountInput[] | TransactionUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAccountInput | TransactionCreateOrConnectWithoutAccountInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutAccountInput | TransactionUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: TransactionCreateManyAccountInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutAccountInput | TransactionUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutAccountInput | TransactionUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type PaymentHistoryUncheckedUpdateManyWithoutAccountNestedInput = {
-    create?: XOR<PaymentHistoryCreateWithoutAccountInput, PaymentHistoryUncheckedCreateWithoutAccountInput> | PaymentHistoryCreateWithoutAccountInput[] | PaymentHistoryUncheckedCreateWithoutAccountInput[]
-    connectOrCreate?: PaymentHistoryCreateOrConnectWithoutAccountInput | PaymentHistoryCreateOrConnectWithoutAccountInput[]
-    upsert?: PaymentHistoryUpsertWithWhereUniqueWithoutAccountInput | PaymentHistoryUpsertWithWhereUniqueWithoutAccountInput[]
-    createMany?: PaymentHistoryCreateManyAccountInputEnvelope
-    set?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
-    disconnect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
-    delete?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
-    connect?: PaymentHistoryWhereUniqueInput | PaymentHistoryWhereUniqueInput[]
-    update?: PaymentHistoryUpdateWithWhereUniqueWithoutAccountInput | PaymentHistoryUpdateWithWhereUniqueWithoutAccountInput[]
-    updateMany?: PaymentHistoryUpdateManyWithWhereWithoutAccountInput | PaymentHistoryUpdateManyWithWhereWithoutAccountInput[]
-    deleteMany?: PaymentHistoryScalarWhereInput | PaymentHistoryScalarWhereInput[]
+  export type TransactionUncheckedUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<TransactionCreateWithoutAccountInput, TransactionUncheckedCreateWithoutAccountInput> | TransactionCreateWithoutAccountInput[] | TransactionUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAccountInput | TransactionCreateOrConnectWithoutAccountInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutAccountInput | TransactionUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: TransactionCreateManyAccountInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutAccountInput | TransactionUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutAccountInput | TransactionUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type AccountCreateNestedOneWithoutPaymentHistoriesInput = {
-    create?: XOR<AccountCreateWithoutPaymentHistoriesInput, AccountUncheckedCreateWithoutPaymentHistoriesInput>
-    connectOrCreate?: AccountCreateOrConnectWithoutPaymentHistoriesInput
+  export type AccountCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<AccountCreateWithoutTransactionsInput, AccountUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutTransactionsInput
     connect?: AccountWhereUniqueInput
-  }
-
-  export type EnumPaymentTypeFieldUpdateOperationsInput = {
-    set?: $Enums.PaymentType
-  }
-
-  export type AccountUpdateOneRequiredWithoutPaymentHistoriesNestedInput = {
-    create?: XOR<AccountCreateWithoutPaymentHistoriesInput, AccountUncheckedCreateWithoutPaymentHistoriesInput>
-    connectOrCreate?: AccountCreateOrConnectWithoutPaymentHistoriesInput
-    upsert?: AccountUpsertWithoutPaymentHistoriesInput
-    connect?: AccountWhereUniqueInput
-    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutPaymentHistoriesInput, AccountUpdateWithoutPaymentHistoriesInput>, AccountUncheckedUpdateWithoutPaymentHistoriesInput>
   }
 
   export type EnumTransactionStatusFieldUpdateOperationsInput = {
@@ -5009,6 +3830,14 @@ export namespace Prisma {
 
   export type EnumTransactionTypeFieldUpdateOperationsInput = {
     set?: $Enums.TransactionType
+  }
+
+  export type AccountUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<AccountCreateWithoutTransactionsInput, AccountUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutTransactionsInput
+    upsert?: AccountUpsertWithoutTransactionsInput
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutTransactionsInput, AccountUpdateWithoutTransactionsInput>, AccountUncheckedUpdateWithoutTransactionsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5122,23 +3951,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumPaymentTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentType | EnumPaymentTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentTypeFilter<$PrismaModel> | $Enums.PaymentType
-  }
-
-  export type NestedEnumPaymentTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentType | EnumPaymentTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentTypeWithAggregatesFilter<$PrismaModel> | $Enums.PaymentType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPaymentTypeFilter<$PrismaModel>
-    _max?: NestedEnumPaymentTypeFilter<$PrismaModel>
-  }
-
   export type NestedEnumTransactionStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
@@ -5173,58 +3985,73 @@ export namespace Prisma {
     _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
   }
 
-  export type PaymentHistoryCreateWithoutAccountInput = {
+  export type TransactionCreateWithoutAccountInput = {
     id?: string
+    userId: string
     amount: number
-    type: $Enums.PaymentType
     timestamp?: Date | string
+    toAddress: string
+    status: $Enums.TransactionStatus
+    transactionType: $Enums.TransactionType
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type PaymentHistoryUncheckedCreateWithoutAccountInput = {
+  export type TransactionUncheckedCreateWithoutAccountInput = {
     id?: string
+    userId: string
     amount: number
-    type: $Enums.PaymentType
     timestamp?: Date | string
+    toAddress: string
+    status: $Enums.TransactionStatus
+    transactionType: $Enums.TransactionType
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type PaymentHistoryCreateOrConnectWithoutAccountInput = {
-    where: PaymentHistoryWhereUniqueInput
-    create: XOR<PaymentHistoryCreateWithoutAccountInput, PaymentHistoryUncheckedCreateWithoutAccountInput>
+  export type TransactionCreateOrConnectWithoutAccountInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutAccountInput, TransactionUncheckedCreateWithoutAccountInput>
   }
 
-  export type PaymentHistoryCreateManyAccountInputEnvelope = {
-    data: PaymentHistoryCreateManyAccountInput | PaymentHistoryCreateManyAccountInput[]
+  export type TransactionCreateManyAccountInputEnvelope = {
+    data: TransactionCreateManyAccountInput | TransactionCreateManyAccountInput[]
     skipDuplicates?: boolean
   }
 
-  export type PaymentHistoryUpsertWithWhereUniqueWithoutAccountInput = {
-    where: PaymentHistoryWhereUniqueInput
-    update: XOR<PaymentHistoryUpdateWithoutAccountInput, PaymentHistoryUncheckedUpdateWithoutAccountInput>
-    create: XOR<PaymentHistoryCreateWithoutAccountInput, PaymentHistoryUncheckedCreateWithoutAccountInput>
+  export type TransactionUpsertWithWhereUniqueWithoutAccountInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutAccountInput, TransactionUncheckedUpdateWithoutAccountInput>
+    create: XOR<TransactionCreateWithoutAccountInput, TransactionUncheckedCreateWithoutAccountInput>
   }
 
-  export type PaymentHistoryUpdateWithWhereUniqueWithoutAccountInput = {
-    where: PaymentHistoryWhereUniqueInput
-    data: XOR<PaymentHistoryUpdateWithoutAccountInput, PaymentHistoryUncheckedUpdateWithoutAccountInput>
+  export type TransactionUpdateWithWhereUniqueWithoutAccountInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutAccountInput, TransactionUncheckedUpdateWithoutAccountInput>
   }
 
-  export type PaymentHistoryUpdateManyWithWhereWithoutAccountInput = {
-    where: PaymentHistoryScalarWhereInput
-    data: XOR<PaymentHistoryUpdateManyMutationInput, PaymentHistoryUncheckedUpdateManyWithoutAccountInput>
+  export type TransactionUpdateManyWithWhereWithoutAccountInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutAccountInput>
   }
 
-  export type PaymentHistoryScalarWhereInput = {
-    AND?: PaymentHistoryScalarWhereInput | PaymentHistoryScalarWhereInput[]
-    OR?: PaymentHistoryScalarWhereInput[]
-    NOT?: PaymentHistoryScalarWhereInput | PaymentHistoryScalarWhereInput[]
-    id?: StringFilter<"PaymentHistory"> | string
-    accountId?: StringFilter<"PaymentHistory"> | string
-    amount?: FloatFilter<"PaymentHistory"> | number
-    type?: EnumPaymentTypeFilter<"PaymentHistory"> | $Enums.PaymentType
-    timestamp?: DateTimeFilter<"PaymentHistory"> | Date | string
+  export type TransactionScalarWhereInput = {
+    AND?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    OR?: TransactionScalarWhereInput[]
+    NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    id?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
+    accountId?: StringFilter<"Transaction"> | string
+    amount?: FloatFilter<"Transaction"> | number
+    timestamp?: DateTimeFilter<"Transaction"> | Date | string
+    toAddress?: StringFilter<"Transaction"> | string
+    status?: EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
+    transactionType?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
+    createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
   }
 
-  export type AccountCreateWithoutPaymentHistoriesInput = {
+  export type AccountCreateWithoutTransactionsInput = {
     id?: string
     userId: string
     type: $Enums.AccountType
@@ -5233,7 +4060,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type AccountUncheckedCreateWithoutPaymentHistoriesInput = {
+  export type AccountUncheckedCreateWithoutTransactionsInput = {
     id?: string
     userId: string
     type: $Enums.AccountType
@@ -5242,23 +4069,23 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type AccountCreateOrConnectWithoutPaymentHistoriesInput = {
+  export type AccountCreateOrConnectWithoutTransactionsInput = {
     where: AccountWhereUniqueInput
-    create: XOR<AccountCreateWithoutPaymentHistoriesInput, AccountUncheckedCreateWithoutPaymentHistoriesInput>
+    create: XOR<AccountCreateWithoutTransactionsInput, AccountUncheckedCreateWithoutTransactionsInput>
   }
 
-  export type AccountUpsertWithoutPaymentHistoriesInput = {
-    update: XOR<AccountUpdateWithoutPaymentHistoriesInput, AccountUncheckedUpdateWithoutPaymentHistoriesInput>
-    create: XOR<AccountCreateWithoutPaymentHistoriesInput, AccountUncheckedCreateWithoutPaymentHistoriesInput>
+  export type AccountUpsertWithoutTransactionsInput = {
+    update: XOR<AccountUpdateWithoutTransactionsInput, AccountUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<AccountCreateWithoutTransactionsInput, AccountUncheckedCreateWithoutTransactionsInput>
     where?: AccountWhereInput
   }
 
-  export type AccountUpdateToOneWithWhereWithoutPaymentHistoriesInput = {
+  export type AccountUpdateToOneWithWhereWithoutTransactionsInput = {
     where?: AccountWhereInput
-    data: XOR<AccountUpdateWithoutPaymentHistoriesInput, AccountUncheckedUpdateWithoutPaymentHistoriesInput>
+    data: XOR<AccountUpdateWithoutTransactionsInput, AccountUncheckedUpdateWithoutTransactionsInput>
   }
 
-  export type AccountUpdateWithoutPaymentHistoriesInput = {
+  export type AccountUpdateWithoutTransactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
@@ -5267,7 +4094,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AccountUncheckedUpdateWithoutPaymentHistoriesInput = {
+  export type AccountUncheckedUpdateWithoutTransactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
@@ -5276,32 +4103,52 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PaymentHistoryCreateManyAccountInput = {
+  export type TransactionCreateManyAccountInput = {
     id?: string
+    userId: string
     amount: number
-    type: $Enums.PaymentType
     timestamp?: Date | string
+    toAddress: string
+    status: $Enums.TransactionStatus
+    transactionType: $Enums.TransactionType
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type PaymentHistoryUpdateWithoutAccountInput = {
+  export type TransactionUpdateWithoutAccountInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    type?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    toAddress?: StringFieldUpdateOperationsInput | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PaymentHistoryUncheckedUpdateWithoutAccountInput = {
+  export type TransactionUncheckedUpdateWithoutAccountInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    type?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    toAddress?: StringFieldUpdateOperationsInput | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PaymentHistoryUncheckedUpdateManyWithoutAccountInput = {
+  export type TransactionUncheckedUpdateManyWithoutAccountInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
-    type?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    toAddress?: StringFieldUpdateOperationsInput | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    transactionType?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
@@ -5317,10 +4164,6 @@ export namespace Prisma {
      * @deprecated Use AccountDefaultArgs instead
      */
     export type AccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use PaymentHistoryDefaultArgs instead
-     */
-    export type PaymentHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PaymentHistoryDefaultArgs<ExtArgs>
     /**
      * @deprecated Use TransactionDefaultArgs instead
      */

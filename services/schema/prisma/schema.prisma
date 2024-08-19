@@ -19,24 +19,15 @@ model Account {
   userId        String
   type          AccountType
   balance       Float         @default(0.0)
-  paymentHistories PaymentHistory[] @relation("AccountPaymentHistories")
+  transactions Transaction[] @relation("AccountTransaction")
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
-}
-
-model PaymentHistory {
-  id            String     @id @default(uuid())
-  accountId     String
-  amount        Float
-  type          PaymentType
-  timestamp     DateTime    @default(now())
-
-  account       Account     @relation("AccountPaymentHistories", fields: [accountId], references: [id])
 }
 
 model Transaction {
   id            String     @id @default(uuid())
   userId        String
+  accountId     String
   amount        Float
   timestamp     DateTime    @default(now())
   toAddress     String
@@ -44,6 +35,8 @@ model Transaction {
   transactionType TransactionType
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
+
+  account       Account     @relation("AccountTransaction", fields: [accountId], references: [id])
 }
 
 enum AccountType {

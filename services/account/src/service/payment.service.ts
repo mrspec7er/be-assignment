@@ -12,7 +12,7 @@ async function getUserTransaction(userId: string) {
       userId,
     },
     include: {
-      paymentHistories: true,
+      transactions: true,
     },
   });
 }
@@ -23,7 +23,7 @@ async function getUserTransactionByAccountId(accountId: string) {
       id: accountId,
     },
     include: {
-      paymentHistories: true,
+      transactions: true,
     },
   });
 }
