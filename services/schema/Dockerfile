@@ -4,6 +4,8 @@ WORKDIR /schema
 
 COPY package.json ./
 
+ENV DATABASE_URL=postgresql://postgres:mrc201@db:5432/be-assignment?schema=public
+
 RUN npm install
 
 COPY . .

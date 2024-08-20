@@ -21,7 +21,6 @@ services:
       context: ./services/schema
       dockerfile: Dockerfile
     container_name: schema
-    restart: always
     ports:
       - 8080:8080
     volumes:
@@ -29,13 +28,13 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./schema
+          path: ./services/schema
           target: /schema
           ignore:
             - dist
             - node_modules
         - action: rebuild
-          path: ./schema/package.json
+          path: ./services/schema/package.json
 
   account:
     depends_on:
@@ -53,13 +52,13 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./account
+          path: ./services/account
           target: /account
           ignore:
             - dist
             - node_modules
         - action: rebuild
-          path: ./account/package.json
+          path: ./services/account/package.json
   payment:
     depends_on:
       database:
@@ -76,13 +75,13 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./payment
+          path: ./services/payment
           target: /payment
           ignore:
             - dist
             - node_modules
         - action: rebuild
-          path: ./payment/package.json
+          path: ./services/payment/package.json
 
 volumes:
   db:
