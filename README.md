@@ -1,59 +1,71 @@
-# Take home assignment
+## Tech Stack
 
+- **Node.js**
+- **TypeScript**
+- **Fastify**
+- **Prisma**
+- **PostgreSQL**
+- **Docker**
+- **Supabase**
 
-## Description:
-Build 2 Backend services which manages user’s accounts and transactions (send/withdraw). 
+## Project Overview
 
-In Account Manager service, we have:
-- User: Login with Id/Password
-- Payment Account: One user can have multiple accounts like credit, debit, loan...
-- Payment History: Records of transactions
+This project showcases a robust implementation of a **microservices architecture** within a **monorepo**. It consists of three core services, each meticulously designed to handle specific business functions:
 
-In Payment Manager service, we have:
-- Transaction: Include basic information like amount, timestamp, toAddress, status...
-- We have a core transaction process function, that will be executed by `/send` or `/withdraw` API:
+### Account Service
 
-```js
-function processTransaction(transaction) {
-    return new Promise((resolve, reject) => {
-        console.log('Transaction processing started for:', transaction);
+- **Responsibilities**:
+  - User registration and authentication
+  - Account creation
+  - Transaction history retrieval
+- **Role**: Acts as the backbone of user management and security within the system.
 
-        // Simulate long running process
-        setTimeout(() => {
-            // After 30 seconds, we assume the transaction is processed successfully
-            console.log('transaction processed for:', transaction);
-            resolve(transaction);
-        }, 30000); // 30 seconds
-    });
-}
+### Payment Service
 
-// Example usage
-let transaction = { amount: 100, currency: 'USD' }; // Sample transaction input
-processTransaction(transaction)
-    .then((processedTransaction) => {
-        console.log('transaction processing completed for:', processedTransaction);
-    })
-    .catch((error) => {
-        console.error('transaction processing failed:', error);
-    });
-```
+- **Responsibilities**:
+  - Handling send operations
+  - Managing withdraw operations
+- **Role**: Serves as the heart of the application's business logic, ensuring seamless financial transactions.
 
-Features:
-- Users need to register/log in and then be able to call APIs.
-- APIs for 2 operations send/withdraw. Account statements will be updated after the transaction is successful.
-- APIs to retrieve all accounts and transactions per account of the user.
-- Write Swagger docs for implemented APIs (Optional)
-- Auto Debit/Recurring Payments: Users should be able to set up recurring payments. These payments will automatically be processed at specified intervals. (Optional)
+### Schema Repository
 
-### Tech-stack:
-- Recommend using authentication 3rd party: Supertokens, Supabase...
-- `NodeJs` for API server (`Fastify/Gin` framework is the best choices)
-- `PostgreSQL/MongoDB` for Database. Recommend using `Prisma` for ORM.
-- `Docker` for containerization. Recommend using `docker-compose` for running containers.
- 
-## Target:
-- Good document/README to describe your implementation.
-- Make sure app functionality works as expected. Run and test it well.
-- Containerized and run the app using Docker.
-- Using `docker-compose` or any automation script to run the app with single command is a plus.
-- Job schedulers utilization is a plus
+- **Responsibilities**:
+  - Centralized management of shared schemas across services
+  - Ensuring consistency in data models
+- **Role**: Embodies the **DRY** (Don't Repeat Yourself) principle, preventing discrepancies and fostering a cohesive and maintainable codebase.
+
+## Architecture
+
+- **Microservices**: The project is divided into distinct services, each responsible for a specific domain of the application.
+- **Monorepo**: All services are housed within a single repository, facilitating shared tooling, consistent development practices, and simplified dependency management.
+
+## Getting Started
+
+Kickstart your journey with this project by following these simple steps:
+
+1. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/mrspec7er/be-assignment
+
+   ```
+
+2. **Build the Docker Containers**:
+
+   ```bash
+   docker compose build
+   ```
+
+3. **Launch the Services**:
+
+   ```bash
+   docker compose up -d
+   ```
+
+4. **Access the Services**:
+
+   - Visit the Account Service at http://localhost:3000
+   - Access the Payment Service at http://localhost:3001
+
+5. **Explore the API**:
+   Dive into the API documentation. Find all the details in the openapi.json file, which is your go-to guide for interfacing with these services.
